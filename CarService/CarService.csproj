@@ -34,5 +34,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sample%28this file might be deleted%29.cs" />
+    <Compile Include="TruckNames.cs" />
+    <Compile Include="CarNames.cs" />
+    <Compile Include="Cars.cs" />
+    <Compile Include="Clients.cs" />
+    <Compile Include="Trucks.cs" />
+    <Compile Include="Vechiles.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
