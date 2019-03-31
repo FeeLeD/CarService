@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace CarService
 {
-    class Vechiles
+    public class Vechiles
     {
         /// <summary>
         /// ВИН код автотранспорта
         /// </summary>
-        public string VIN;
+        public string VIN { get; set; }
         /// <summary>
         /// Модель автотранспорта
         /// </summary>
-        public string Model;
+        public string Model { get; set; }
         /// <summary>
         /// Объём двигателя автотранспорта
         /// </summary>
-        public double EngineVolume;
+        public double EngineVolume { get; set; }
         /// <summary>
         /// Год выпуска автотранспорта
         /// </summary>
-        public DateTime ManufactureYear;
+        public DateTime ManufactureYear { get; set; }
         /// <summary>
         /// Список неисправностей автотранспорта
         /// </summary>

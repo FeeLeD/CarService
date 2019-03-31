@@ -7,22 +7,17 @@ using System.Threading.Tasks;
 namespace CarService
 {
     /// <summary>
-    /// Легковые автомобили
+    /// Грузовые автомобили
     /// </summary>
-    class Cars : Vechiles
+    public class Trucks : Vechiles
     {
         /// <summary>
-        /// Название легкового автомобиля
+        /// Название грузового автомобиля
         /// </summary>
-        public CarNames Name;
+        public TruckNames Name { get; set; }
 
-        public Cars(CarNames name, string vin, string model, double engine, DateTime year)
+        public Trucks()
         {
-            Name = name;
-            VIN = vin;
-            Model = model;
-            EngineVolume = engine;
-            ManufactureYear = year;
             DefectsDescription = new List<string>();
         }
 

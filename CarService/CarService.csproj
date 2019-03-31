@@ -36,12 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sample%28this file might be deleted%29.cs" />
-    <Compile Include="TruckNames.cs" />
-    <Compile Include="CarNames.cs" />
-    <Compile Include="Cars.cs" />
-    <Compile Include="Clients.cs" />
-    <Compile Include="Trucks.cs" />
-    <Compile Include="Vechiles.cs" />
+    <Compile Include="DataModel\TruckNames.cs" />
+    <Compile Include="DataModel\CarNames.cs" />
+    <Compile Include="DataModel\Cars.cs" />
+    <Compile Include="DataModel\Clients.cs" />
+    <Compile Include="DataModel\Trucks.cs" />
+    <Compile Include="DataModel\Vechiles.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

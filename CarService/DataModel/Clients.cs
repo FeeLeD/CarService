@@ -9,25 +9,25 @@ namespace CarService
     /// <summary>
     /// База клиентов. В базу будет добавляться каждый новый клиент
     /// </summary>
-    class ClientBase
+    public class ClientBase
     {
-        public List<Clients> Base = new List<Clients>();
+        public List<Clients> List = new List<Clients>();
     }
 
-    class Clients
+    public class Clients
     {
         /// <summary>
         /// ФИО клиента
         /// </summary>
-        public string Name;
+        public string Name { get; set; }
         /// <summary>
         /// Телефон
         /// </summary>
-        public PhoneNumber Number;
+        public PhoneNumber Number { get; set; }
         /// <summary>
         /// Дата заказа
         /// </summary>
-        public DateTime OrderDate;
+        public DateTime OrderDate { get; set; }
         /// <summary>
         /// Список легковых и грузовых автомобилей клиента (в случае, если у клиента несколько транспортных средств)
         /// </summary>
@@ -36,40 +36,42 @@ namespace CarService
         /// <summary>
         /// Выполнение заказа клиента. Выполнен, или нет
         /// </summary>
-        public bool OrderDone;
+        public bool OrderDone = false;
 
-        public Clients(string name, PhoneNumber number, DateTime date, List<Cars> cars = null, List<Trucks> trucks = null)
+        public Clients()
         {
-            Name = name;
-            Cars = cars;
-            Trucks = trucks;
-            Number = number;
-            OrderDate = date;
-            OrderDone = false;
+            Cars = null;
+            Trucks = null;
         }
 
         public override string ToString()
         {
-            return OrderDone == true ? Name + ", заказ выполнен" : Name + ", заказ не выполнен";
+            string result = "ФИО: " + Name + ";\nНомер телефона: " + Number + ";\nДата заказа: " + OrderDate + ";";
+            result += "\nМарка и модель автомобилей: ";
+            if (Cars != null)
+            {
+                foreach (var e in Cars)
+                    result += e.Name + " " + e.Model + "; ";
+            }
+            if (Trucks != null)
+            {
+                foreach (var e in Trucks)
+                    result += e.Name + " " + e.Model + "; ";
+            }
+            return OrderDone == true ? result + "\nСтатус заказа: выполнен" : result + "\nСтатус заказа: не выполнен";
         }
 
-        public override bool Equals(object obj)
-        {
-            var element = obj as Clients;
-            return element.Name == Name && element.Number == Number;
-        }
-
-        public override int GetHashCode()
-        {
-            return Number.GetHashCode();
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    var element = obj as Clients;
+        //    return element.Name == Name && element.Number == Number;
     }
     /// <summary>
     /// Класс, созданный для преобразования введённого номера телефона
     /// в любом формате в единый общепринятый формат. На данный момент
     /// класс недоработан. Создан ради интереса :)
     /// </summary>
-    class PhoneNumber
+    public class PhoneNumber
     {
         private string Number;
         public PhoneNumber(string number)
