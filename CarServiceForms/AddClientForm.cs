@@ -14,40 +14,50 @@ namespace CarServiceForms
     public partial class AddClientForm : Form
     {
         public ClientBase ClientBase;
-        public ListBox Clients;
-        public AddClientForm(ClientBase clientBase, ListBox clients)
+        public Clients Client;
+        public ListBox ClientsListBox;
+        public AddClientForm(ClientBase clientBase, ListBox clientsListBox)
         {
             ClientBase = clientBase;
-            Clients = clients;
+            ClientsListBox = clientsListBox;
+            Client = new Clients();
             InitializeComponent();
+            dateTimePicker.MaxDate = DateTime.Today;
+            dateTimePicker.Value = DateTime.Today;
         }
 
-        private void addClient_Click(object sender, EventArgs e)
+        private void addNewClient_Click(object sender, EventArgs e)
         {
-            var name = textBoxName.Text;
-            var phoneNumber = new PhoneNumber(textBoxPhone.Text);
-            var orderDate = orderTimePicker.Value;
+            var name = nameTextBox.Text;
+            var phoneNumber = new PhoneNumber(phoneTextBox.Text);
+            var orderDate = dateTimePicker.Value;
 
-            if (name != "" && phoneNumber != null)
+            var conditions = new List<bool>()
             {
-                var client = new Clients()
-                {
-                    Name = name,
-                    Number = phoneNumber,
-                    OrderDate = orderDate
-                };
-                ClientBase.List.Add(client);
-                MessageBox.Show("Клиент добавлен!");
+                name != "",
+                phoneNumber.ToString() != "",
+                phoneNumber.ToString().Count() == 11
+            };
 
-                Clients.Items.Add(client);
+            if (conditions[0] && conditions[1] && conditions[2])
+            {
+                Client.Name = name;
+                Client.Number = phoneNumber;
+                Client.OrderDate = orderDate;
 
+                ClientBase.List.Add(Client);
+
+                ClientsListBox.DataSource = null;
+                ClientsListBox.DataSource = ClientBase.List;
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Заполните все поля!");
+                if (!conditions[2])
+                    MessageBox.Show("Введите корректный номер телефона");
+                else
+                    MessageBox.Show("Заполните обязательные поля!");
             }
-
         }
     }
 }

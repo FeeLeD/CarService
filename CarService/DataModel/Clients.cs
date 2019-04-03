@@ -40,25 +40,24 @@ namespace CarService
 
         public Clients()
         {
-            Cars = null;
-            Trucks = null;
+            Cars = new List<Cars>();
+            Trucks = new List<Trucks>();
         }
 
         public override string ToString()
         {
-            string result = "ФИО: " + Name + ";\nНомер телефона: " + Number + ";\nДата заказа: " + OrderDate + ";";
-            result += "\nМарка и модель автомобилей: ";
-            if (Cars != null)
-            {
-                foreach (var e in Cars)
-                    result += e.Name + " " + e.Model + "; ";
-            }
-            if (Trucks != null)
-            {
-                foreach (var e in Trucks)
-                    result += e.Name + " " + e.Model + "; ";
-            }
-            return OrderDone == true ? result + "\nСтатус заказа: выполнен" : result + "\nСтатус заказа: не выполнен";
+            //string result = "ФИО: " + Name + "; \nНомер телефона: " + Number + "; \nДата заказа: " + OrderDate + ";";
+            //if (Cars.Count > 0 || Trucks.Count > 0)
+            //{
+            //    result += " \nМарка и модель автомобилей: ";
+            //    foreach (var e in Cars)
+            //        result += e.Name + " " + e.Model + "; ";
+            //    foreach (var e in Trucks)
+            //        result += e.Name + " " + e.Model + "; ";
+
+            //}
+            return OrderDone == true ? Name + " (" + Number + ") | Статус заказа: выполнен" :
+                Name + " (" + Number + ") | Статус заказа: не выполнен";
         }
 
         //public override bool Equals(object obj)
@@ -77,12 +76,17 @@ namespace CarService
         public PhoneNumber(string number)
         {
             var fixedNumber = "";
-            var stringsArray = number.Split(' ');
+            if (number == "")
+                Number = fixedNumber;
+            else
+            {
+                var stringsArray = number.Split(' ');
 
-            foreach (var e in stringsArray)
-                fixedNumber += e;
+                foreach (var e in stringsArray)
+                    fixedNumber += e;
 
-            Number = fixedNumber;
+                Number = fixedNumber;
+            }
         }
 
         public override string ToString()

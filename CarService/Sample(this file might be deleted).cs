@@ -21,7 +21,7 @@ namespace CarService
                 Name = TruckNames.IVECO,
                 VIN = "VASD2932",
                 Model = "EuroStar",
-                EngineVolume = 10,
+                EngineVolume = 1.5,
                 ManufactureYear = DateTime.Now
             };
 
@@ -83,6 +83,8 @@ namespace CarService
             Console.WriteLine("Клиентская база: ");
             foreach (var client in clientBase.List)
                 Console.WriteLine(client);
+
+            Console.WriteLine(client1.Trucks.Last().EngineVolume);
 
         }
     }
