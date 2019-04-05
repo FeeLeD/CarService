@@ -122,8 +122,10 @@ namespace CarServiceForms
                 if (cars.DefectsDescription.Count > 0)
                 { 
                     foreach (var defect in cars.DefectsDescription)
-                        vechileDefectsTextBox.Text += defect;
+                        vechileDefectsTextBox.Text += (defect + "; ");
                 }
+                warning1.Visible = false;
+                warning2.Visible = false;
             }
             else
             {
@@ -146,8 +148,10 @@ namespace CarServiceForms
                 if (trucks.DefectsDescription.Count > 0)
                 {
                     foreach (var defect in trucks.DefectsDescription)
-                        vechileDefectsTextBox.Text += defect;
+                        vechileDefectsTextBox.Text += (defect + "; ");
                 }
+                warning1.Visible = false;
+                warning2.Visible = false;
             }
             else
             {
@@ -171,7 +175,26 @@ namespace CarServiceForms
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Cars)carsListBox.Items[index];
-                var ccf = new ChangeCarForm(Client, item, carsListBox);
+                var ccf = new ChangeCarForm(Client, carsListBox, null, item)
+                {
+                    Warning1 = warning1,
+                    Warning2 = warning2
+                };
+                ccf.Show();
+            }
+        }
+
+        private void trucksListBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.trucksListBox.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                var item = (Trucks)trucksListBox.Items[index];
+                var ccf = new ChangeCarForm(Client, null, trucksListBox, null, item)
+                {
+                    Warning1 = warning1,
+                    Warning2 = warning2
+                };
                 ccf.Show();
             }
         }

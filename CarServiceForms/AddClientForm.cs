@@ -36,10 +36,11 @@ namespace CarServiceForms
             {
                 name != "",
                 phoneNumber.ToString() != "",
-                phoneNumber.ToString().Count() == 11
+                phoneNumber.ToString().Count() == 11,
+                TryParse(phoneNumber.ToString())
             };
 
-            if (conditions[0] && conditions[1] && conditions[2])
+            if (conditions[0] && conditions[1] && conditions[2] && conditions[3])
             {
                 Client.Name = name;
                 Client.Number = phoneNumber;
@@ -53,10 +54,22 @@ namespace CarServiceForms
             }
             else
             {
-                if (!conditions[2])
+                if (!conditions[2] || !conditions[3])
                     MessageBox.Show("Введите корректный номер телефона");
                 else
                     MessageBox.Show("Заполните обязательные поля!");
+            }
+        }
+        private bool TryParse(string number)
+        {
+            try
+            {
+                Double.Parse(number);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

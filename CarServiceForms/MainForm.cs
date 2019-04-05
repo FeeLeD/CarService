@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CarService;
+using System.IO;
 
 
 namespace CarServiceForms
@@ -18,7 +19,7 @@ namespace CarServiceForms
         public MainForm()
         {
             InitializeComponent();
-            TestAdding();
+            //TestAdding();
             clientListBox.DataSource = ClientBase.List;
         }
 
@@ -40,7 +41,7 @@ namespace CarServiceForms
         }
 
         private void deleteClient_Click(object sender, EventArgs e)
-        { 
+        {
             if (clientListBox.SelectedItem is Clients)
             {
                 ClientBase.List.Remove((Clients)clientListBox.SelectedItem);
@@ -70,6 +71,7 @@ namespace CarServiceForms
                     statusTextBox.ForeColor = Color.Red;
                     statusTextBox.Text = "Не выполнен";
                 }
+
                 warning1.Visible = false;
                 warning2.Visible = false;
                 warning3.Visible = false;
@@ -84,11 +86,26 @@ namespace CarServiceForms
             CleanVechileInfo();
         }
 
+        private void clientListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var index = clientListBox.SelectedIndex;
+            if (index >= 0 && ClientBase.List.Count > 0 && clientListBox.GetSelected(index))
+            {
+                deleteClient.Enabled = true;
+                changeClient.Enabled = true;
+            }
+            else
+            {
+                deleteClient.Enabled = false;
+                changeClient.Enabled = false;
+            }
+        }
+
         private void carsListBox_Click(object sender, EventArgs e)
         {
             var carIndex = carsListBox.SelectedIndex;
             var clientIndex = clientListBox.SelectedIndex;
-            if (carIndex >= 0 && clientIndex >= 0 && ClientBase.List.Count > 0 && 
+            if (carIndex >= 0 && clientIndex >= 0 && ClientBase.List.Count > 0 &&
                 ClientBase.List[clientIndex].Cars.Count > 0 && carsListBox.GetSelected(carIndex))
             {
                 var cars = ClientBase.List[clientIndex].Cars[carIndex];
@@ -149,23 +166,26 @@ namespace CarServiceForms
             Close();
         }
 
-        private void TestAdding()
-        {
-            ClientBase.List.Add(new Clients()
-            {
-                Name = "Александр Дмитриевич Попов",
-                Number = new PhoneNumber("8 912 354 26 83"),
-                OrderDate = DateTime.Today
-            });
-            ClientBase.List.Find(e => e.Name == "Александр Дмитриевич Попов").Cars.Add(new Cars
-            {
-                Name = CarNames.Mercedes,
-                Model = "S-class",
-                VIN = "SANYA99VPORYADKE234",
-                EngineVolume = 2.5,
-                ManufactureYear = DateTime.Today
-            });
-        }
+
+        //Добавление клиента
+        //private void TestAdding()
+        //{
+        //    var c = new Clients()
+        //    {
+        //        Name = "Александр Дмитриевич Попов",
+        //        Number = new PhoneNumber("8 912 354 26 83"),
+        //        OrderDate = DateTime.Today
+        //    };
+        //    ClientBase.List.Add(c);
+        //    ClientBase.List.Find(e => e.Name == "Александр Дмитриевич Попов").Cars.Add(new Cars
+        //    {
+        //        Name = CarNames.Mercedes,
+        //        Model = "S-class",
+        //        VIN = "SANYA99VPORYADKE234",
+        //        EngineVolume = 2.5,
+        //        ManufactureYear = DateTime.Today
+        //    });
+        //}
 
         private void CleanFields()
         {
@@ -191,6 +211,18 @@ namespace CarServiceForms
             vVolumeTextBox.Text = "";
             vDateTextBox.Text = "";
             defectsTextBox.Text = "";
+        }
+
+        private void Instruction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show(File.ReadAllText("instruction.txt", Encoding.Default));
+            }
+            catch (FileNotFoundException exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

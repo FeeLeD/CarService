@@ -43,6 +43,8 @@
             this.vechileVolumeTextBox = new System.Windows.Forms.TextBox();
             this.vechileManufactedTextBox = new System.Windows.Forms.TextBox();
             this.vechileDefectsTextBox = new System.Windows.Forms.TextBox();
+            this.warning1 = new System.Windows.Forms.Label();
+            this.warning2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // deleteTruckButton
@@ -100,6 +102,7 @@
             this.trucksListBox.TabIndex = 36;
             this.trucksListBox.Click += new System.EventHandler(this.trucksListBox_Click);
             this.trucksListBox.SelectedIndexChanged += new System.EventHandler(this.trucksListBox_SelectedIndexChanged);
+            this.trucksListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trucksListBox_MouseDoubleClick);
             // 
             // carsListBox
             // 
@@ -204,11 +207,35 @@
             this.vechileDefectsTextBox.Size = new System.Drawing.Size(205, 147);
             this.vechileDefectsTextBox.TabIndex = 50;
             // 
+            // warning1
+            // 
+            this.warning1.AutoSize = true;
+            this.warning1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.warning1.Location = new System.Drawing.Point(504, 9);
+            this.warning1.Name = "warning1";
+            this.warning1.Size = new System.Drawing.Size(268, 13);
+            this.warning1.TabIndex = 51;
+            this.warning1.Text = "Внесены изменения! Для обновления информации";
+            this.warning1.Visible = false;
+            // 
+            // warning2
+            // 
+            this.warning2.AutoSize = true;
+            this.warning2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.warning2.Location = new System.Drawing.Point(505, 26);
+            this.warning2.Name = "warning2";
+            this.warning2.Size = new System.Drawing.Size(268, 13);
+            this.warning2.TabIndex = 52;
+            this.warning2.Text = "кликните на список соответствующего транспорта";
+            this.warning2.Visible = false;
+            // 
             // CarListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 361);
+            this.Controls.Add(this.warning2);
+            this.Controls.Add(this.warning1);
             this.Controls.Add(this.vechileDefectsTextBox);
             this.Controls.Add(this.vechileManufactedTextBox);
             this.Controls.Add(this.vechileVolumeTextBox);
@@ -252,5 +279,7 @@
         private System.Windows.Forms.TextBox vechileVolumeTextBox;
         private System.Windows.Forms.TextBox vechileManufactedTextBox;
         private System.Windows.Forms.TextBox vechileDefectsTextBox;
+        private System.Windows.Forms.Label warning1;
+        private System.Windows.Forms.Label warning2;
     }
 }

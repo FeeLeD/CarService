@@ -42,6 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.carVin = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textToChange = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // defectTextBox
@@ -52,6 +53,7 @@
             this.defectTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.defectTextBox.Size = new System.Drawing.Size(434, 274);
             this.defectTextBox.TabIndex = 35;
+            this.defectTextBox.Click += new System.EventHandler(this.defectTextBox_Click);
             // 
             // changeCar
             // 
@@ -134,10 +136,13 @@
             // 
             // vinTextBox
             // 
+            this.vinTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.vinTextBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.vinTextBox.Location = new System.Drawing.Point(142, 85);
             this.vinTextBox.Name = "vinTextBox";
             this.vinTextBox.Size = new System.Drawing.Size(307, 20);
             this.vinTextBox.TabIndex = 23;
+            this.vinTextBox.WordWrap = false;
             // 
             // label3
             // 
@@ -164,12 +169,23 @@
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 36;
             // 
+            // textToChange
+            // 
+            this.textToChange.AutoSize = true;
+            this.textToChange.BackColor = System.Drawing.Color.White;
+            this.textToChange.Location = new System.Drawing.Point(78, 352);
+            this.textToChange.Name = "textToChange";
+            this.textToChange.Size = new System.Drawing.Size(290, 13);
+            this.textToChange.TabIndex = 37;
+            this.textToChange.Text = "Внесите дополнительные услуги / иные неисправности";
+            // 
             // ChangeCarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(484, 561);
+            this.Controls.Add(this.textToChange);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.defectTextBox);
             this.Controls.Add(this.changeCar);
@@ -210,5 +226,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label carVin;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label textToChange;
     }
 }

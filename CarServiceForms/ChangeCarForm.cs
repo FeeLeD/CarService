@@ -14,72 +14,138 @@ namespace CarServiceForms
 {
     public partial class ChangeCarForm : Form
     {
-        Cars Car;
+        Cars Car = null;
+        Trucks Truck = null;
         ListBox CarListBox;
+        ListBox TruckListBox;
         Clients Client;
-        public ChangeCarForm(Clients client, Cars car, ListBox carListBox)
+        
+        private Vechiles Vechile;
+
+        public Label Warning1;
+        public Label Warning2;
+
+        public ChangeCarForm(Clients client, ListBox carListBox = null, ListBox truckListBox = null, Cars car = null, Trucks truck = null)
         {
             InitializeComponent();
             Client = client;
-            Car = car;
-            CarListBox = carListBox;
+
+            if (car != null)
+            {
+                Car = car;
+                CarListBox = carListBox;
+            }
+            else
+            {
+                Truck = truck;
+                TruckListBox = truckListBox;
+            }
+
+            if (Car != null)
+                Vechile = Car;
+            else
+                Vechile = Truck;
+
             manufactureDateTimePicker.MaxDate = DateTime.Today;
-            manufactureDateTimePicker.Value = Car.ManufactureYear;
+
+            carModelTextBox.Text = Vechile.Model;
+            vinTextBox.Text = Vechile.VIN;
+            engineVolume.Text = Vechile.EngineVolume.ToString();
+            manufactureDateTimePicker.Value = Vechile.ManufactureYear;
         }
+
+        private bool specialChecker = false;
 
         private void changeCar_Click(object sender, EventArgs e)
         {
             var check = false;
+
             var conditions = new List<bool>
             {
-                carModelTextBox.Text != Car.Model && carModelTextBox.Text != "",
-                carVin.Text != Car.VIN && vinTextBox.Text != "",
-                engineVolume.Text != "" && Double.Parse(engineVolume.Text, CultureInfo.InvariantCulture) != Car.EngineVolume,
+                carModelTextBox.Text != Vechile.Model && carModelTextBox.Text != "",
+                vinTextBox.Text != Vechile.VIN && vinTextBox.Text != "",
+                engineVolume.Text != "" && ParseToDouble(engineVolume.Text) != Vechile.EngineVolume,
                 defectTextBox.Text != "",
-                manufactureDateTimePicker.Value.Year != Car.ManufactureYear.Year
+                manufactureDateTimePicker.Value.Year != Vechile.ManufactureYear.Year
             };
 
             if (conditions[0] || conditions[1] || conditions[2] || conditions[3] || conditions[4])
             {
                 if (conditions[0])
                 {
-                    Car.Model = carModelTextBox.Text;
+                    Vechile.Model = carModelTextBox.Text;
                     check = true;
                 }
 
                 if (conditions[1])
                 {
-                    Car.VIN = vinTextBox.Text;
+                    Vechile.VIN = vinTextBox.Text;
                     check = true;
                 }
 
                 if (conditions[2])
                 {
-                    Car.EngineVolume = Double.Parse(engineVolume.Text, CultureInfo.InvariantCulture);
+                    Vechile.EngineVolume = ParseToDouble(engineVolume.Text);
                     check = true;
                 }
 
                 if (conditions[3])
                 {
-                    Car.DefectsDescription.Add(defectTextBox.Text);
+                    Vechile.DefectsDescription.Add(defectTextBox.Text);
                     check = true;
                 }
 
                 if (conditions[4])
                 {
-                    Car.ManufactureYear = manufactureDateTimePicker.Value;
+                    Vechile.ManufactureYear = manufactureDateTimePicker.Value;
                     check = true;
                 }
 
                 if (check)
                 {
-                    CarListBox.DataSource = null;
-                    CarListBox.DataSource = Client.Cars;
-                    Close();
+                    if (Car != null)
+                    {
+                        CarListBox.DataSource = null;
+                        CarListBox.DataSource = Client.Cars;
+                        Close();
+                    }
+                    else
+                    {
+                        TruckListBox.DataSource = null;
+                        TruckListBox.DataSource = Client.Trucks;
+                        Close();
+                    }
+                    Warning1.Visible = true;
+                    Warning2.Visible = true;
                 }
             }
             else
-                MessageBox.Show("Введите изменения!");
+            {
+                if (!specialChecker)
+                    MessageBox.Show("Введите изменения!");
+            }
+        }
+
+        private double ParseToDouble(string date)
+        {
+            if (date.Contains("."))
+                date = date.Replace(".", ",");
+            try
+            {
+                return Double.Parse(date);
+            }
+            catch
+            {
+                this.Close();
+                specialChecker = true;
+                MessageBox.Show("Неверный формат ввода объёма двигателя!");
+                return Vechile.EngineVolume;
+            }
+        }
+
+        private void defectTextBox_Click(object sender, EventArgs e)
+        {
+            textToChange.Visible = false;
         }
     }
 }

@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
 using CarService;
 
 namespace CarServiceForms
@@ -36,7 +30,7 @@ namespace CarServiceForms
         private void addCar_Click(object sender, EventArgs e)
         {
             if (IsCar)
-            { 
+            {
                 AddingNewCar(carsNames.Text, carModelTextBox.Text, vinTextBox.Text, engineVolume.Text,
                     manufactureDateTimePicker.Value);
                 MainListBox.DataSource = null;
@@ -69,7 +63,9 @@ namespace CarServiceForms
         {
             double engineVolume = 0;
             if (engineVol != "")
-                engineVolume = Double.Parse(engineVol, CultureInfo.InvariantCulture);
+            {
+                engineVolume = ParseToDouble(engineVol);
+            }
             if (model != "" && vin != "" && engineVolume != 0)
             {
                 Car.Name = CarName(carName);
@@ -96,7 +92,9 @@ namespace CarServiceForms
         {
             double engineVolume = 0;
             if (engineVol != "")
-                engineVolume = Double.Parse(engineVol, CultureInfo.InvariantCulture);
+            {
+                engineVolume = ParseToDouble(engineVol);
+            }
             if (model != "" && vin != "" && engineVolume != 0)
             {
                 Truck.Name = TruckName(name);
@@ -159,6 +157,22 @@ namespace CarServiceForms
                 case "DAF": return TruckNames.DAF;
                 case "Isuzu": return TruckNames.Isuzu;
                 default: throw new Exception("No such name");
+            }
+        }
+
+        private double ParseToDouble(string date)
+        {
+            if (date.Contains("."))
+                date = date.Replace(".", ",");
+            try
+            {
+                return Double.Parse(date);
+            }
+            catch
+            {
+                this.Close();
+                MessageBox.Show("Неверный формат ввода объёма двигателя!");
+                return Car.EngineVolume;
             }
         }
     }

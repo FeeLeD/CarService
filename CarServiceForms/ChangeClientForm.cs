@@ -35,11 +35,12 @@ namespace CarServiceForms
             var conditions = new List<bool>
             {
                 nameTextBox.Text != Client.Name && nameTextBox.Text != "",
-                new PhoneNumber(phoneTextBox.Text) != Client.Number && phoneTextBox.Text != "",
+                phoneTextBox.Text != "" && new PhoneNumber(phoneTextBox.Text) != Client.Number,
+                TryParse(new PhoneNumber(phoneTextBox.Text).ToString()),
                 orderCheckBox.Checked != Client.OrderDone
             };
 
-            if (conditions[0] || conditions[1] || conditions[2])
+            if (conditions[0] || conditions[1] || conditions[3])
             {
                 if (conditions[0])
                 {
@@ -49,7 +50,7 @@ namespace CarServiceForms
 
                 if (conditions[1])
                 {
-                    if (new PhoneNumber(phoneTextBox.Text).ToString().Length != 11)
+                    if (!conditions[2])
                         MessageBox.Show("Введите корректный номер телефона!");
                     else
                     {
@@ -58,7 +59,7 @@ namespace CarServiceForms
                     }
                 }
 
-                if (conditions[2])
+                if (conditions[3])
                 {
                     Client.OrderDone = !Client.OrderDone;
                     check = true;
@@ -82,6 +83,19 @@ namespace CarServiceForms
         {
             if (Client.OrderDone)
                 orderCheckBox.CheckState = CheckState.Checked;
+        }
+
+        private bool TryParse(string number)
+        {
+            try
+            {
+                Double.Parse(number);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
