@@ -195,7 +195,7 @@ namespace CarServiceForms
         {
             try
             {
-                MessageBox.Show(File.ReadAllText(@"~/instruction.txt", Encoding.Default));
+                MessageBox.Show(File.ReadAllText("instruction.txt", Encoding.Default));
             }
             catch (FileNotFoundException exc)
             {
