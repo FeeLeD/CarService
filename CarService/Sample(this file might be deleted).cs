@@ -32,7 +32,10 @@ namespace CarService
             var client1 = new Clients()
             {
                 Name = "Роман Иванов",
-                Number = new PhoneNumber("88005553535"),
+                Number = new PhoneNumber()
+                {
+                    Number = "88005553535"
+                },
                 OrderDate = DateTime.Now,
                 Trucks = new List<Trucks> { truck1 }
             };

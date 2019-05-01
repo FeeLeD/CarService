@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CarService;
 using System.IO;
-
+using System.Xml.Serialization;
 
 namespace CarServiceForms
 {
@@ -19,7 +19,6 @@ namespace CarServiceForms
         public MainForm()
         {
             InitializeComponent();
-            //TestAdding();
             clientListBox.DataSource = ClientBase.List;
         }
 
@@ -166,27 +165,6 @@ namespace CarServiceForms
             Close();
         }
 
-
-        //Добавление клиента
-        //private void TestAdding()
-        //{
-        //    var c = new Clients()
-        //    {
-        //        Name = "Александр Дмитриевич Попов",
-        //        Number = new PhoneNumber("8 912 354 26 83"),
-        //        OrderDate = DateTime.Today
-        //    };
-        //    ClientBase.List.Add(c);
-        //    ClientBase.List.Find(e => e.Name == "Александр Дмитриевич Попов").Cars.Add(new Cars
-        //    {
-        //        Name = CarNames.Mercedes,
-        //        Model = "S-class",
-        //        VIN = "SANYA99VPORYADKE234",
-        //        EngineVolume = 2.5,
-        //        ManufactureYear = DateTime.Today
-        //    });
-        //}
-
         private void CleanFields()
         {
             nameTextBox.Text = "";
@@ -217,12 +195,54 @@ namespace CarServiceForms
         {
             try
             {
-                MessageBox.Show(File.ReadAllText("instruction.txt", Encoding.Default));
+                MessageBox.Show(File.ReadAllText(@"~/instruction.txt", Encoding.Default));
             }
             catch (FileNotFoundException exc)
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog() { Filter = "Клиентская база|*.clientbase" };
+
+            if (sfd.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            var clientBase = new ClientBase()
+            {
+                List = ClientBase.List
+            };
+
+            var xs = new XmlSerializer(typeof(ClientBase));
+
+            var file = File.Create(sfd.FileName);
+
+            xs.Serialize(file, clientBase);
+            file.Close();
+        }
+
+        private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog() { Filter = "Клиенская база|*.clientbase" };
+
+            if (ofd.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            var xs = new XmlSerializer(typeof(ClientBase));
+            var file = File.OpenRead(ofd.FileName);
+
+            var downoladedBase = (ClientBase)xs.Deserialize(file);
+            file.Close();
+
+            ClientBase = downoladedBase;
+            clientListBox.DataSource = null;
+            clientListBox.DataSource = ClientBase.List;
+
+            warning1.Visible = true;
+            warning2.Visible = true;
+            warning3.Visible = true;
         }
     }
 }

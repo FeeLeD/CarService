@@ -29,7 +29,10 @@ namespace CarServiceForms
         private void addNewClient_Click(object sender, EventArgs e)
         {
             var name = nameTextBox.Text;
-            var phoneNumber = new PhoneNumber(phoneTextBox.Text);
+            var phoneNumber = new PhoneNumber()
+            {
+                Number = phoneTextBox.Text
+            };
             var orderDate = dateTimePicker.Value;
 
             var conditions = new List<bool>()

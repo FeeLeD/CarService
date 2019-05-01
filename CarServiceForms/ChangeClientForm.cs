@@ -35,8 +35,8 @@ namespace CarServiceForms
             var conditions = new List<bool>
             {
                 nameTextBox.Text != Client.Name && nameTextBox.Text != "",
-                phoneTextBox.Text != "" && new PhoneNumber(phoneTextBox.Text) != Client.Number,
-                TryParse(new PhoneNumber(phoneTextBox.Text).ToString()),
+                phoneTextBox.Text != "" && new PhoneNumber() { Number = phoneTextBox.Text } != Client.Number,
+                TryParse(new PhoneNumber() { Number = phoneTextBox.Text }.ToString()),
                 orderCheckBox.Checked != Client.OrderDone
             };
 
@@ -54,7 +54,7 @@ namespace CarServiceForms
                         MessageBox.Show("Введите корректный номер телефона!");
                     else
                     {
-                        Client.Number = new PhoneNumber(phoneTextBox.Text);
+                        Client.Number = new PhoneNumber() { Number = phoneTextBox.Text };
                         check = true;
                     }
                 }

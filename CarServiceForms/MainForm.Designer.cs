@@ -56,8 +56,8 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.базаКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instruction = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.client.SuspendLayout();
@@ -273,11 +273,11 @@
             // 
             this.warning3.AutoSize = true;
             this.warning3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.warning3.Location = new System.Drawing.Point(441, 42);
+            this.warning3.Location = new System.Drawing.Point(435, 43);
             this.warning3.Name = "warning3";
-            this.warning3.Size = new System.Drawing.Size(209, 13);
+            this.warning3.Size = new System.Drawing.Size(218, 13);
             this.warning3.TabIndex = 8;
-            this.warning3.Text = "\"Клиент\" щёлкните по списку клиентов";
+            this.warning3.Text = "\"Клиент\" щёлкните по клиенту из списка";
             this.warning3.Visible = false;
             // 
             // warning2
@@ -377,23 +377,25 @@
             // базаКлиентовToolStripMenuItem
             // 
             this.базаКлиентовToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.загрузитьToolStripMenuItem,
-            this.загрузитьToolStripMenuItem1});
+            this.saveToolStripMenuItem,
+            this.downloadToolStripMenuItem});
             this.базаКлиентовToolStripMenuItem.Name = "базаКлиентовToolStripMenuItem";
             this.базаКлиентовToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
             this.базаКлиентовToolStripMenuItem.Text = "База клиентов";
             // 
-            // загрузитьToolStripMenuItem
+            // saveToolStripMenuItem
             // 
-            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.загрузитьToolStripMenuItem.Text = "Сохранить";
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Сохранить";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // загрузитьToolStripMenuItem1
+            // downloadToolStripMenuItem
             // 
-            this.загрузитьToolStripMenuItem1.Name = "загрузитьToolStripMenuItem1";
-            this.загрузитьToolStripMenuItem1.Size = new System.Drawing.Size(132, 22);
-            this.загрузитьToolStripMenuItem1.Text = "Загрузить";
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downloadToolStripMenuItem.Text = "Загрузить";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
             // 
             // Instruction
             // 
@@ -462,8 +464,8 @@
         private System.Windows.Forms.TextBox vNameTextBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem базаКлиентовToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Instruction;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label warning3;

@@ -46,24 +46,9 @@ namespace CarService
 
         public override string ToString()
         {
-            //string result = "ФИО: " + Name + "; \nНомер телефона: " + Number + "; \nДата заказа: " + OrderDate + ";";
-            //if (Cars.Count > 0 || Trucks.Count > 0)
-            //{
-            //    result += " \nМарка и модель автомобилей: ";
-            //    foreach (var e in Cars)
-            //        result += e.Name + " " + e.Model + "; ";
-            //    foreach (var e in Trucks)
-            //        result += e.Name + " " + e.Model + "; ";
-
-            //}
             return OrderDone == true ? Name + " (" + Number + ") | Статус заказа: выполнен" :
                 Name + " (" + Number + ") | Статус заказа: не выполнен";
         }
-
-        //public override bool Equals(object obj)
-        //{
-        //    var element = obj as Clients;
-        //    return element.Name == Name && element.Number == Number;
     }
     /// <summary>
     /// Класс, созданный для преобразования введённого номера телефона
@@ -72,25 +57,20 @@ namespace CarService
     /// </summary>
     public class PhoneNumber
     {
-        private string Number;
-        public PhoneNumber(string number)
+        public string Number { get; set; }
+
+        public override string ToString()
         {
-            var fixedNumber = "";
-            if (number == "")
-                Number = fixedNumber;
-            else
+            if (Number != "")
             {
-                var stringsArray = number.Split(' ');
+                var fixedNumber = "";
+                var stringsArray = Number.Split(' ');
 
                 foreach (var e in stringsArray)
                     fixedNumber += e;
 
                 Number = fixedNumber;
             }
-        }
-
-        public override string ToString()
-        {
             return Number;
         }
     }
